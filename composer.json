@@ -1,0 +1,10 @@
+{
+    "require": {
+        "moip/moip-sdk-php": "^1.2"
+    },
+    "autoload": {
+      "psr-4":{
+        "MoipPayment\\": "src/"
+      }
+    }
+}
