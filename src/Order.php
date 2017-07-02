@@ -40,6 +40,12 @@ class Order{
    */
   public $discount;
 
+  /**
+   * Shipping price
+   * @var int
+   */
+  public $shipping;
+
   public function __construct($moip, $customer){
     $this->moip = $moip;
     $this->customer = $customer;
@@ -49,6 +55,12 @@ class Order{
   /**
    * Add a item to our items list
    * @param array $item
+   *            @format [
+   *              string 'Item Name',
+   *              int    'Quantity',
+   *              string 'Detailed information',
+   *              int    'Price'
+   *            ]
    * @return void
    */
   public function addItem(array $item){
@@ -61,10 +73,12 @@ class Order{
    * @param  array  $items
    * @return void
    */
-  private function processItens($order, array $items){
-    $current_order = $order;
-    array_map(function($item) use (&$current_order){
-      return $current_order->addItem($item);
+  private function processItems($order, array $items){
+    $currentOrder = $order;
+    array_map(function($item) use (&$currentOrder, &$items){
+      foreach($items as $it){
+          return $currentOrder->addItem($it[0], $it[1], $it[2], $it[3]);
+      }
     }, $items);
   }
 
@@ -81,13 +95,13 @@ class Order{
 
     try{
       $order = $this->moip->orders()->setOwnId($this->identifier);
-      $this->processItens($order, $this->items);
-      $order->setAddition($addition);
-      $order->setDiscount($discount);
-      $order->setShippingAmount($shippping);
+      $this->processItems($order, $this->items);
+      $order->setAddition($this->addition);
+      $order->setDiscount($this->discount);
+      $order->setShippingAmount($shipping);
       $order->setCustomer($this->customer)
             ->create();
-      printf($order);
+      return $order;
     } catch (Exception $e){
       printf($e->__toString());
     }
