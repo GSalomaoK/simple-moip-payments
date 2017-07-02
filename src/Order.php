@@ -117,11 +117,17 @@ class Order{
 
   /**
    * Check the current status of the order
+   * @param  object $moip
    * @param  string $identifier
    * @return string
    */
-  public static function checkOrderStatus($identifier){
-
+  public static function checkOrderStatus($moip, $identifier){
+    try{
+      $orderStatus = $moip->orders()->get($identifier);
+      return $orderStatus;
+    } catch (Exception $e){
+      printf($e->__toString());
+    }
   }
 
 }
