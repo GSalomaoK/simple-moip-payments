@@ -9,8 +9,8 @@ use MoipPayment\Payment;
 use MoipPayment\Order;
 use MoipPayment\Customer;
 
-$token = "XAFRDJQPVQSI6JKEWUMIIEOGMSSRTPOF";
-$key = "B9L3HLKTWDUBZCEILXSSG2PCFW0GOYNXU9ZDODB5";
+$token = "YOUR_TOKEN_HERE";
+$key = "YOUR_KEY_HERE";
 
 $moip = new Moip(new BasicAuth($token, $key), Moip::ENDPOINT_SANDBOX);
 
