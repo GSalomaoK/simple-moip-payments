@@ -107,6 +107,13 @@ class Order{
     }
 
   }
+  /**
+   * Shows the identifier of our order to later purposes
+   * @return string
+   */
+  public function getIdentifier(){
+    return $this->identifier;
+  }
 
   /**
    * Check the current status of the order
